@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Oct  8 09:25:44 2020
-
 @author: Alejo Villores 
 """
 import matplotlib.pyplot as plt
@@ -11,7 +10,7 @@ import random
 #Constante
 INTENTOS = 100000
 COLUMNAS = 1000
-
+CRITERIO = 10e-10
 
 # Pre:  Recibe un numero random
 # Post: Devuelve la cantidad de iteraciones hechas hasta coinicidir
@@ -20,7 +19,7 @@ def fuerza_bruta(n_random):
     iteraciones = 0
     
     while encontrado != True:
-        if iteraciones == n_random:
+        if abs(iteraciones - n_random) < CRITERIO :
             encontrado = True
         else:
             iteraciones += 1
@@ -60,9 +59,12 @@ def candado():
 
 resultado = candado()
 
-plt.hist(resultado,bins = COLUMNAS)
+plt.stem(resultado)
 plt.title("Distribución de 10000 claves")
 plt.xlabel("Iteraciones medias")
+axes = plt.gca()
+axes.set_xlim([0, 1000])
+axes.set_ylim([0, 160])
 plt.grid()
 plt.show()
 
